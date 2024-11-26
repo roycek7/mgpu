@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "mgpu"
+version = "0.1.0"
+description = ""
+authors = ["Pritish Roy <pritishkumar.roy@uqconnect.edu.au>"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/roycek7/mgpu"
+homepage = "https://github.com/roycek7/mgpu"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^1.26.4"
+vllm = "^0.6.4.post1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+ruff = "^0.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
