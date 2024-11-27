@@ -1,6 +1,6 @@
 import multiprocessing
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any, List
 
 import numpy as np
 from vllm import LLM
@@ -10,18 +10,18 @@ from .models import LLMParams, SamplingParams
 
 def mgpu_inference(
     prompts: List[str],
+    llm_config: LLMParams,
+    sampling_config: SamplingParams,
     num_gpus: int = 8,
-    llm_params: Optional[Dict] = None,
-    sampling_params: Optional[Dict] = None,
 ) -> List[str]:
     """
     Interface for running multi-GPU inference with customizable parameters.
 
     Args:
         prompts (List[str]): A list of input prompts to generate responses for.
+        llm_config (LLMParams): Parameters for configuring the LLM model.
+        sampling_params (SamplingParams): Parameters for sampling during inference.
         num_gpus (int): Number of GPUs to use for inference (default: 8).
-        llm_params (Optional[Dict]): Parameters for configuring the LLM model.
-        sampling_params (Optional[Dict]): Parameters for sampling during inference.
 
     Returns:
         List[str]: A list of generated responses corresponding to the input prompts.
@@ -74,10 +74,6 @@ def mgpu_inference(
             for i in range(num_splits)
         ]
 
-    # Validate and initialize LLM and Sampling parameters
-    llm_config = LLMParams(**(llm_params or {}))
-    sampling_config = SamplingParams(**(sampling_params or {}))
-
     # Split prompts among GPUs
     split_prompts = split_list(prompts, num_gpus)
 
@@ -113,8 +109,14 @@ llm_params = {
 }
 sampling_params = {"n": 2, "temperature": 0.7, "max_tokens": 256}
 
+llm_config = LLMParams(**(llm_params))
+sampling_config = SamplingParams(**(sampling_params))
+
 responses = mgpu_inference(
-    prompts, num_gpus=4, llm_params=llm_params, sampling_params=sampling_params
+    prompts,
+    llm_config=llm_config,
+    sampling_config=sampling_config,
+    num_gpus=4,
 )
 
 for response in responses:

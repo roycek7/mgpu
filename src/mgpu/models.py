@@ -23,7 +23,7 @@ class SamplingParams(BaseModel):
     min_tokens: int = 1
     logprobs: Optional[int] = None
     prompt_logprobs: Optional[int] = None
-    detokenize: Optional[bool] = True
+    detokenize: bool = True
     skip_special_tokens: bool = False
     spaces_between_special_tokens: bool = True
     logits_processors: Optional[List] = None
