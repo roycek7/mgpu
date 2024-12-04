@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "mgpu"
-version = "0.1.0"
+version = "0.3.0"
 description = ""
-authors = ["Pritish Roy <pritishkumar.roy@uqconnect.edu.au>"]
+authors = ["Pritish Roy", "Pietro Bernardelle", "Stefano Civelli"]
 readme = "README.md"
 license = "MIT"
 repository = "https://github.com/roycek7/mgpu"
